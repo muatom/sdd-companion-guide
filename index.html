@@ -29,10 +29,10 @@
   --green:#a2eb9a; --green-600:#8fe086; --green-700:#74cf6f;
   --white:#ffffff; --mist:#f3f6fb; --tint:#e3eef8; --tint-cool:#cfe0f3;
   --line-soft:#e1e9f3; --line:#d4ddec;
-  --fg:#020140; --fg-body:#212058; --fg-2:#5b658a; --fg-3:#616a8c;
+  --fg:#020140; --fg-body:#212058; --fg-2:#4d5779; --fg-3:#56607f;
   --font:"Migdal RagSans","Assistant","Heebo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
   --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
-  --fs-xs:13px; --fs-cap:14px; --fs-sm:16px; --fs-ui:17px; --fs-body:18px; --fs-h4:20px;
+  --fs-xs:14px; --fs-cap:15px; --fs-sm:16px; --fs-ui:17px; --fs-body:18px; --fs-h4:20px;
   --r-xs:4px; --r-sm:8px; --r-lg:16px;
   --sh-3:0 12px 32px rgba(2,1,64,.10);
   --top-h:64px;
@@ -46,7 +46,7 @@
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(var(--top-h) + 16px);scroll-padding-bottom:calc(var(--player-h) + 16px);scrollbar-gutter:stable}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-body{margin:0;background:var(--white);color:var(--fg);font-family:var(--font);font-weight:400;font-size:var(--fs-body);line-height:1.7;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;padding-bottom:var(--player-h)}
+body{margin:0;background:var(--white);color:var(--fg);font-family:var(--font);font-weight:400;font-size:var(--fs-body);line-height:1.75;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;padding-bottom:var(--player-h)}
 h1,h2,h3,h4,h5{margin:0;font-weight:700;color:var(--ink);text-wrap:balance}
 p{margin:0}
 b,strong{font-weight:700}
@@ -91,6 +91,8 @@ svg.i{width:20px;height:20px;flex:none;display:block}
 .logo img{height:32px;width:auto}
 .top-sep{flex:none;width:1px;height:24px;background:var(--line)}
 .top-title{font-weight:700;font-size:var(--fs-ui);color:var(--ink);text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.top-where{min-width:0;font-size:var(--fs-sm);color:var(--fg-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-where:not(:empty)::before{content:"";display:inline-block;width:1px;height:18px;margin-inline-end:14px;background:var(--line);vertical-align:-3px}
 .top-actions{margin-inline-start:auto;display:flex;align-items:center;gap:8px;flex:none}
 .top-listen.is-playing{background:var(--ink);color:#fff;box-shadow:none}
 .toc-btn{display:none}
@@ -131,7 +133,8 @@ svg.i{width:20px;height:20px;flex:none;display:block}
 .toc a .n{flex:none;min-width:1.4em;font-size:var(--fs-xs);color:var(--fg-3);font-variant-numeric:tabular-nums}
 .toc a:hover{background:var(--mist);color:var(--ink)}
 .toc a.is-active{border-inline-start-color:var(--blue);background:var(--mist);color:var(--ink);font-weight:700}
-.toc .sub{margin:2px 0 6px}
+.toc .sub{display:none;margin:2px 0 6px}
+.toc li.is-open > .sub{display:block}
 .toc .sub a{padding:5px 12px;padding-inline-start:38px;font-size:var(--fs-cap)}
 .side-audio{margin-top:24px;padding:16px;border:1px solid var(--line-soft);border-radius:var(--r-sm);background:var(--white)}
 .side-audio p{font-size:var(--fs-cap);line-height:1.5;color:var(--fg-2)}
@@ -147,23 +150,28 @@ main.content{min-width:0;max-width:800px;padding-bottom:40px}
 /* ============================================================
    [G] פרקים וטיפוגרפיה של התוכן
    ============================================================ */
-.chapter{padding-top:72px}
-.ch-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 24px;padding-bottom:22px;margin-bottom:28px;border-bottom:1px solid var(--line-soft)}
-.ch-num{font-weight:700;font-size:var(--fs-cap);color:var(--fg-2)}
-.chapter h2{margin-top:4px;font-size:clamp(28px,3.4vw,38px);line-height:1.2}
+.chapter{margin-top:80px;padding-top:56px;border-top:1px solid var(--line)}
+.chapter:first-child{margin-top:0;padding-top:72px;border-top:0}
+.ch-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 24px;margin-bottom:24px}
+.ch-num{display:flex;align-items:baseline;gap:12px;font-weight:700;font-size:var(--fs-cap);color:var(--fg-2)}
+.ch-n{font-weight:300;font-size:48px;line-height:1;color:var(--blue);font-variant-numeric:tabular-nums}
+.chapter h2{margin-top:10px;font-size:clamp(30px,3.6vw,42px);line-height:1.2}
+.ch-head + .prose > p:first-child,.ch-head + p.prose{font-size:20px;line-height:1.7;color:var(--ink)}
 .prose p,p.prose,.panel-lead,.note,.tr-body p,figcaption.cap{max-width:36em}
 .prose p + p{margin-top:16px}
 .prose,.prose p{color:var(--fg-body)}
-.panel{padding-top:56px}
-.panel h3{margin-top:6px;font-size:clamp(23px,2.6vw,28px);line-height:1.3}
-.panel h4{margin-top:36px;font-size:var(--fs-h4);line-height:1.35}
-.panel-lead{margin-top:10px;color:var(--fg-body)}
+.panel{margin-top:80px}
+.panel > .k{color:var(--blue-deep)}
+.k-n{margin-inline-end:8px;font-variant-numeric:tabular-nums}
+.panel h3{margin-top:6px;font-size:clamp(24px,2.7vw,30px);line-height:1.3}
+.panel h4{margin-top:40px;font-size:var(--fs-h4);line-height:1.35}
+.panel-lead{margin-top:12px;font-size:19px;color:var(--fg-body)}
 .note{margin-top:18px;font-size:var(--fs-ui);color:var(--fg-body)}
 .fine{font-size:var(--fs-cap);line-height:1.6;color:var(--fg-3)}
 .callout{margin-top:28px;padding:18px 22px;border-inline-start:4px solid var(--ink);border-radius:0;border-start-end-radius:4px;border-end-end-radius:4px;background:var(--mist);font-weight:700;font-size:var(--fs-h4);line-height:1.5}
 .banner{margin-top:24px;padding:16px 20px;border-inline-start:4px solid var(--ink);border-radius:0;border-start-end-radius:4px;border-end-end-radius:4px;background:var(--mist);font-size:var(--fs-ui);color:var(--fg-body)}
 .banner b{color:var(--ink)}
-.audience{margin-top:20px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;padding:16px 20px;border:1px solid var(--line-soft);border-radius:var(--r-sm);font-size:var(--fs-ui);color:var(--fg-body)}
+.audience{margin-top:24px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;font-size:var(--fs-ui);color:var(--fg-body)}
 .audience b{white-space:nowrap;color:var(--ink)}
 .bullets{list-style:none;margin:0;padding:0;display:grid;gap:10px}
 .bullets li{position:relative;padding-inline-start:20px;color:var(--fg-body)}
@@ -176,17 +184,27 @@ main.content{min-width:0;max-width:800px;padding-bottom:40px}
 /* הקראה: כפתור האזנה לפרק ותמליל */
 .listen.is-playing{background:var(--ink);color:#fff;box-shadow:none}
 .listen.is-playing .tdur{color:rgba(255,255,255,.75)}
-.transcript{margin-top:28px;border:1px solid var(--line-soft);border-radius:var(--r-sm);background:var(--white)}
-.transcript summary{display:flex;align-items:center;gap:10px;min-height:52px;padding:12px 18px;font-weight:700;font-size:var(--fs-sm);color:var(--ink);cursor:pointer;list-style:none}
+.transcript{margin-top:40px;border-top:1px solid var(--line-soft)}
+.transcript summary{display:flex;align-items:center;gap:10px;min-height:52px;padding:12px 4px;font-size:var(--fs-sm);color:var(--fg-2);cursor:pointer;list-style:none}
 .transcript summary::-webkit-details-marker{display:none}
 .transcript summary::after{content:"";margin-inline-start:auto;width:9px;height:9px;border-inline-end:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg) translateY(-3px);transition:transform .2s}
 .transcript[open] summary::after{transform:rotate(225deg) translateY(-3px)}
 .transcript summary:hover{background:var(--mist)}
-.tr-body{padding:4px 18px 20px;border-top:1px solid var(--line-soft);font-size:var(--fs-ui);color:var(--fg-body)}
+.tr-body{padding:4px 4px 24px;font-size:var(--fs-ui);color:var(--fg-body)}
 .tr-body p{margin-top:14px}
 .tr-body .tr-lang{margin-top:18px;padding-top:12px;border-top:1px dashed var(--line);font-weight:700;font-size:var(--fs-cap);color:var(--fg-2)}
 .tr-body .tr-lang:first-child{margin-top:14px;padding-top:0;border-top:0}
 .tr-en{direction:ltr;text-align:left}
+
+/* פירוט מתקפל: חומר עזר שלא צריך בקריאה ראשונה */
+.more{margin-top:24px;border:1px solid var(--line-soft);border-radius:var(--r-sm);background:var(--white)}
+.more > summary{display:flex;align-items:center;gap:12px;min-height:52px;padding:12px 18px;font-weight:700;font-size:var(--fs-sm);color:var(--ink);cursor:pointer;list-style:none}
+.more > summary::-webkit-details-marker{display:none}
+.more > summary::before{content:"+";display:inline-grid;place-items:center;flex:none;width:26px;height:26px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line);font-weight:400;font-size:19px;line-height:1}
+.more[open] > summary::before{content:"\2212"}
+.more > summary:hover{background:var(--mist)}
+.more-body{padding:4px 18px 22px}
+.more-body > :first-child{margin-top:0}
 
 /* ============================================================
    [H] רכיבי פרק 2
@@ -266,7 +284,7 @@ main.content{min-width:0;max-width:800px;padding-bottom:40px}
 .step p{font-size:var(--fs-cap);line-height:1.5;color:var(--fg-body)}
 .step.is-here .step-bar{background:var(--ink)}
 .here{position:absolute;inset-inline:0;top:8px;text-align:center;font-weight:700;font-size:var(--fs-xs);color:#fff}
-.ladder-note{padding:12px 14px;border-radius:4px;background:var(--mist);font-size:var(--fs-sm);color:var(--fg-body)}
+.ladder-note{font-size:var(--fs-sm);color:var(--fg-body)}
 
 .pv{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px}
 .pv-box{flex:1 1 96px;display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;border-radius:var(--r-sm);background:var(--mist);text-align:center}
@@ -285,15 +303,9 @@ main.content{min-width:0;max-width:800px;padding-bottom:40px}
 .quote cite{display:block;margin-top:4px;font-style:normal;font-size:var(--fs-cap);color:var(--fg-2)}
 
 .steps{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.steps li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;align-items:start;padding:12px 14px;border-radius:var(--r-sm);background:var(--mist)}
+.steps li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;align-items:start}
 .st-n{width:28px;height:28px;border-radius:50%;background:var(--white);box-shadow:inset 0 0 0 1px var(--line);font-size:var(--fs-cap)}
 .steps p{font-size:var(--fs-ui);line-height:1.55;padding-top:1px;color:var(--fg-body)}
-.cmds{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:14px;border:1px solid var(--line-soft);border-radius:var(--r-sm);background:var(--white)}
-.cmds-k{flex-basis:100%;margin-bottom:2px;font-size:var(--fs-cap);color:var(--fg-2)}
-.cmd{padding:5px 10px;border-radius:4px;background:var(--mist);box-shadow:inset 0 0 0 1px var(--line);font-family:var(--mono);font-size:var(--fs-xs);color:var(--ink);direction:ltr}
-.gate{display:inline-flex;align-items:center;gap:5px;font-size:var(--fs-xs);color:var(--fg-2)}
-.gate::before{content:"";width:7px;height:7px;border:1.5px solid var(--ink);transform:rotate(45deg);border-radius:1px}
-.gate::after{content:"←";color:var(--fg-3)}
 .measure{display:grid;gap:12px;padding:18px;border:1.5px dashed var(--line);border-radius:var(--r-sm)}
 .ms-k{font-weight:700;font-size:var(--fs-ui)}
 .ms-in{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
@@ -315,21 +327,19 @@ main.content{min-width:0;max-width:800px;padding-bottom:40px}
 .method-nav{display:flex;gap:8px;margin-top:22px}
 .method-nav a{flex:none;padding:6px 12px;border-radius:4px;background:var(--white);box-shadow:inset 0 0 0 1px var(--line);color:var(--ink);font-size:var(--fs-cap);text-decoration:none}
 .method-nav a:hover{background:var(--mist);box-shadow:inset 0 0 0 1px var(--ink)}
-.parts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
-.parts .btn{justify-content:flex-start;text-align:right}
+.part{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;margin-top:64px;padding:18px 22px;border-radius:var(--r-sm);background:var(--mist)}
+.part + .panel{margin-top:44px}
+.part-k{display:block;font-weight:700;font-size:var(--fs-cap);color:var(--blue-deep)}
+.part-t{display:block;font-weight:700;font-size:22px;line-height:1.3;color:var(--ink)}
 
 .brain{display:grid;grid-template-columns:minmax(0,1fr) 72px minmax(0,1fr);align-items:stretch;margin-top:22px}
 .brain-card{padding:24px;border-radius:var(--r-sm)}
-.brain-card.dark{background:var(--ink);color:#fff}
-.brain-card.light{background:var(--mist);border:1px solid var(--line-soft)}
-.bk{font-weight:700;font-size:var(--fs-cap)}
-.dark .bk{color:rgba(255,255,255,.72)}
-.light .bk{color:var(--fg-2)}
+.brain-card.is-spec{box-shadow:inset 0 0 0 2px var(--ink)}
+.brain-card.is-agent{box-shadow:inset 0 0 0 1px var(--line)}
+.bk{font-weight:700;font-size:var(--fs-cap);color:var(--fg-2)}
 .bt{margin-top:6px;font-weight:900;font-size:28px;line-height:1.2}
 .bt .en{font-family:var(--mono);font-weight:400;font-size:.55em;opacity:.8}
-.bd{margin-top:8px;font-size:var(--fs-ui);line-height:1.6}
-.dark .bd{color:rgba(255,255,255,.85)}
-.light .bd{color:var(--fg-body)}
+.bd{margin-top:8px;font-size:var(--fs-ui);line-height:1.6;color:var(--fg-body)}
 .brain-ar{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-weight:700;font-size:var(--fs-xs);color:var(--fg-2)}
 .brain-ar .ar{font-size:26px;line-height:1;color:var(--ink)}
 
@@ -359,7 +369,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
 .hs{display:none}
 
 .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:22px}
-.kpi{padding:16px;border-radius:var(--r-sm);background:var(--mist)}
+.kpi{padding-top:12px;border-top:2px solid var(--ink)}
 .kpi-n{display:block;font-weight:900;font-size:40px;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
 .kpi-l{display:block;margin-top:8px;font-size:var(--fs-cap);line-height:1.4;color:var(--fg-2)}
 .repo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start;margin-top:20px}
@@ -386,16 +396,13 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
 
 .tiers{display:grid;gap:6px;margin-top:24px}
 .tier{width:var(--w);margin-inline:0 auto;display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px 14px;border:1px solid var(--line);border-radius:4px;background:var(--white)}
-.tier:first-child{background:var(--ink);border-color:var(--ink);color:#fff}
+.tier:first-child{background:var(--tint);border-color:var(--ink)}
 .tier-n{font-weight:700;font-size:var(--fs-cap);color:var(--fg-3);font-variant-numeric:tabular-nums}
-.tier:first-child .tier-n{color:rgba(255,255,255,.72)}
 .tier-t{font-weight:700;font-size:var(--fs-ui);line-height:1.3}
 .tier-s{display:block;font-weight:400;font-size:var(--fs-cap);color:var(--fg-2)}
-.tier:first-child .tier-s{color:rgba(255,255,255,.78)}
 .tier-r{display:grid;justify-items:end;gap:1px;text-align:left}
 .tier-r code{font-size:var(--fs-xs)}
 .tier-o{font-size:var(--fs-xs);color:var(--fg-2)}
-.tier:first-child .tier-o{color:rgba(255,255,255,.78)}
 .tier-axis{display:flex;justify-content:space-between;margin-top:8px;font-weight:700;font-size:var(--fs-xs);color:var(--fg-3)}
 .prec-notes{margin-top:22px}
 
@@ -408,7 +415,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
 .doc-toc li{display:flex;align-items:baseline;gap:8px;padding-block:4px;border-bottom:1px dashed var(--line-soft);font-size:var(--fs-cap);color:var(--fg-body)}
 .doc-toc li:last-child{border-bottom:0}
 .doc-toc .n{min-width:1.5em;font-size:var(--fs-xs);color:var(--fg-3);font-variant-numeric:tabular-nums}
-.doc-rule{margin-top:auto;padding:10px 12px;border-radius:4px;background:var(--mist);font-size:var(--fs-cap);line-height:1.5;color:var(--ink)}
+.doc-rule{margin-top:auto;padding-top:12px;border-top:1px solid var(--line-soft);font-size:var(--fs-cap);line-height:1.5;color:var(--ink)}
 .doc-ar{display:grid;place-items:center;font-size:20px;color:var(--fg-3)}
 .excerpt{margin:24px 0 0}
 .excerpt-k{margin-bottom:8px;font-size:var(--fs-cap);color:var(--fg-2)}
@@ -447,32 +454,30 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
 .lp-arc{fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linecap:round}
 .lp-head{fill:var(--ink)}
 .lp-box{fill:var(--white);stroke:var(--line);stroke-width:1.5}
-.lp-agent{fill:var(--ink);stroke:var(--ink)}
+.lp-agent{fill:var(--tint);stroke:var(--ink)}
 .lp-t{font-family:var(--font);font-weight:700;font-size:17px;fill:var(--ink)}
-.lp-t.on{fill:#fff}
 .lp-s{font-family:var(--mono);font-size:13px;fill:var(--fg-2)}
-.lp-s.on{fill:rgba(255,255,255,.8)}
 .lp-c1{font-family:var(--font);font-weight:700;font-size:18px;fill:var(--ink)}
 .lp-c2{font-family:var(--font);font-size:14px;fill:var(--fg-2)}
 .lp-num{fill:var(--tint)}
 .lp-numt{font-family:var(--font);font-weight:700;font-size:12px;fill:var(--ink)}
 .loop-steps{display:none}
 .rules{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.rules li{padding:14px 16px;border-radius:var(--r-sm);background:var(--mist);font-size:var(--fs-sm);line-height:1.55;color:var(--fg-body)}
+.rules li{padding-inline-start:14px;border-inline-start:2px solid var(--line);font-size:var(--fs-sm);line-height:1.55;color:var(--fg-body)}
 .rules b{display:block;margin-bottom:2px;font-size:var(--fs-ui);color:var(--ink)}
 .flow{margin:16px 0 0}
 .flow-grid{display:grid;grid-template-columns:minmax(0,.8fr) 32px minmax(0,1.4fr) 32px minmax(0,.8fr);align-items:center}
-.flow-src{padding:20px 16px;border-radius:var(--r-sm);background:var(--ink);color:#fff;text-align:center}
-.flow-k{display:block;font-size:var(--fs-cap);color:rgba(255,255,255,.8)}
+.flow-src{padding:20px 16px;border-radius:var(--r-sm);box-shadow:inset 0 0 0 2px var(--ink);text-align:center}
+.flow-k{display:block;font-size:var(--fs-cap);color:var(--fg-2)}
 .flow-big{display:block;margin-top:4px;font-weight:900;font-size:48px;line-height:1}
-.flow-d{display:block;margin-top:6px;font-size:var(--fs-cap);color:rgba(255,255,255,.8)}
+.flow-d{display:block;margin-top:6px;font-size:var(--fs-cap);color:var(--fg-2)}
 .flow-ar{display:grid;place-items:center;font-size:20px;color:var(--fg-3)}
 .flow-dests{display:grid;gap:8px}
 .dest{display:grid;gap:1px;padding:10px 14px;border:1px solid var(--line-soft);border-radius:var(--r-sm);background:var(--white)}
 .dest-why{font-size:var(--fs-xs);color:var(--fg-3)}
 .dest code{font-weight:700;font-size:var(--fs-cap);color:var(--ink);text-align:right}
 .dest-what{font-size:var(--fs-cap);color:var(--fg-2)}
-.flow-sink{display:grid;gap:6px;justify-items:center;padding:18px 14px;border:1.5px solid var(--ink);border-radius:var(--r-sm);background:var(--mist);text-align:center}
+.flow-sink{display:grid;gap:6px;justify-items:center;padding:18px 14px;border:1px solid var(--line);border-radius:var(--r-sm);text-align:center}
 .flow-sink code{font-weight:700;font-size:var(--fs-cap)}
 .flow-sink span{font-size:var(--fs-cap);color:var(--fg-2)}
 
@@ -488,9 +493,9 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
 .sw-na{border:1.5px dashed var(--fg-3)}
 .sw-bad{background:var(--white);box-shadow:inset 0 0 0 2px var(--blue)}
 .two-rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
-.two-rules p{padding:12px 14px;border-radius:var(--r-sm);background:var(--mist);font-size:var(--fs-sm);line-height:1.55;color:var(--fg-body)}
+.two-rules p{padding-inline-start:14px;border-inline-start:2px solid var(--line);font-size:var(--fs-sm);line-height:1.55;color:var(--fg-body)}
 .two-rules b{color:var(--ink)}
-.heat-fig{margin:22px 0 0}
+.heat-fig{margin:0}
 .heat-box{padding:10px 12px;border:1px solid var(--line-soft);border-radius:var(--r-sm);background:var(--white)}
 .heat{width:calc(100% - 1px);min-width:600px;border-collapse:separate;border-spacing:4px 3px;font-size:var(--fs-cap)}
 .heat thead th{padding:4px;font-weight:700;font-size:var(--fs-xs);color:var(--fg-2);text-align:center}
@@ -498,7 +503,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
 .heat tbody th{padding:3px 4px 3px 10px;text-align:right;font-weight:400;white-space:nowrap}
 .heat tbody th code{margin-right:6px;font-size:12px;color:var(--fg-3)}
 .heat td{padding:0;text-align:center;vertical-align:middle}
-.cell{height:18px;border-radius:3px}
+.cell{height:14px;border-radius:3px}
 .heat td:not(:last-child) .cell{width:88px;margin-inline:auto}
 .c-ok{background:var(--ink)}
 .c-wip{background:var(--tint-cool);box-shadow:inset 0 0 0 1.5px var(--ink)}
@@ -557,9 +562,8 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
 .asks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:24px}
 .ask h3{margin-top:4px;font-size:var(--fs-h4)}
 .ask p:not(.k){margin-top:8px;font-size:var(--fs-sm);line-height:1.6;color:var(--fg-body)}
-.next-step{margin-top:24px;padding:20px 22px;border-radius:var(--r-sm);background:var(--ink);color:#fff}
-.next-step .k{color:rgba(255,255,255,.72)}
-.next-step p:not(.k){margin-top:6px;font-weight:700;font-size:19px;line-height:1.55}
+.next-step{margin-top:28px;padding:18px 22px;border-inline-start:4px solid var(--ink);border-radius:0;border-start-end-radius:4px;border-end-end-radius:4px;background:var(--mist)}
+.next-step p:not(.k){margin-top:6px;font-weight:700;font-size:19px;line-height:1.55;color:var(--ink)}
 .foot{margin-top:72px;border-top:1px solid var(--line-soft);background:var(--mist)}
 .foot-in{max-width:1240px;margin:0 auto;padding:32px 32px 48px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 24px;align-items:start;font-size:var(--fs-cap);color:var(--fg-2)}
 .foot img{height:28px;width:auto;grid-row:span 3}
@@ -604,7 +608,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
   .method-nav::-webkit-scrollbar{display:none}
 }
 @media (max-width:860px){
-  .projects,.asks,.fb,.cfiles,.parts,.rules{grid-template-columns:1fr}
+  .projects,.asks,.fb,.cfiles,.rules{grid-template-columns:1fr}
   .repo{grid-template-columns:1fr}
   .brain{grid-template-columns:1fr}
   .brain-ar{flex-direction:row;padding-block:10px}
@@ -648,9 +652,21 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
   .hero-actions .btn{flex:1 1 100%;min-height:60px}
   .thesis{padding:22px}
   .thesis-t{font-size:21px}
-  .chapter{padding-top:56px}
-  .ch-head .btn{width:100%}
-  .panel{padding-top:44px}
+  .top.has-where .top-title{display:none}
+  .top-where{font-weight:700;font-size:15px;color:var(--ink)}
+  .top-where:not(:empty)::before{display:none}
+  .chapter{margin-top:72px;padding-top:44px}
+  .chapter:first-child{padding-top:48px}
+  .ch-n{font-size:40px}
+  .ch-head + .prose > p:first-child,.ch-head + p.prose{font-size:19px}
+  .ch-head .btn,.part .btn{width:100%}
+  .part{padding:16px}
+  .part-t{font-size:20px}
+  .panel{margin-top:64px}
+  .more > summary{padding-inline:14px}
+  .more-body{padding-inline:14px}
+  .doc-toc{display:flex;flex-wrap:wrap;gap:2px 14px}
+  .doc-toc li{padding-block:2px;border-bottom:0}
   .callout{font-size:18px}
   .audience{grid-template-columns:1fr}
   .card,.src{padding:18px}
@@ -667,10 +683,6 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
   .pv-box{flex:none;flex-direction:row;justify-content:space-between;align-items:center;padding:10px 14px;text-align:right}
   .pv-ar{flex-direction:row;gap:6px;padding-block:2px}
   .pv-ar::before{content:"↓"}
-  .cmds{flex-direction:column;flex-wrap:nowrap;align-items:flex-start;gap:4px}
-  .cmds-k{flex-basis:auto}
-  .gate{padding-inline-start:10px}
-  .gate::after{content:"↓"}
   .gantt{min-width:540px;grid-template-columns:64px repeat(7,minmax(0,1fr));grid-template-rows:repeat(5,34px) 22px;gap:6px 3px}
   .g-b,.g-l{font-size:var(--fs-xs)}
   .g-l.mono{font-size:12px}
@@ -702,7 +714,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
   .rl-group ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px}
   .rl-group li{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;font-size:var(--fs-cap);color:var(--fg-2)}
   .rl-group li code{font-weight:700;font-size:var(--fs-cap);color:var(--ink)}
-  .chip,.pill,.cmd,.gate,.here,.pv-d,.pv-ar,.sgate,.tier-o,.tier-r code,.fate b,.dest-why,.blk,.hs,.heat thead th,.doc-toc .n,.toc a .n,.lesson,.axis span,.pl-time,.fine code{font-size:var(--fs-cap)}
+  .chip,.pill,.here,.pv-d,.pv-ar,.sgate,.tier-o,.tier-r code,.fate b,.dest-why,.blk,.hs,.heat thead th,.doc-toc .n,.toc a .n,.lesson,.axis span,.pl-time,.fine code{font-size:var(--fs-cap)}
   .foot-in{grid-template-columns:1fr}
   .foot img{grid-row:auto}
   .player-in{grid-template-areas:"seek seek seek" "ctrl mid end";padding-block:4px 8px;gap:2px 10px}
@@ -734,7 +746,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
 @media (max-width:1099px){.side-panel{padding-right:max(8px,env(safe-area-inset-right))}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 @media print{
-  .top,.side,.player,.listen,.transcript,.hero-actions,.parts,.method-nav,.lang-row{display:none!important}
+  .top,.side,.player,.listen,.transcript,.hero-actions,.part .btn,.method-nav,.lang-row{display:none!important}
   .shell{display:block}
   .hero{background:none}
 }
@@ -761,6 +773,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
     <a class="logo" href="#top" aria-label="מגדל · לראש המדריך"><img src="assets/migdal-logo.png" alt="מגדל" width="78" height="32"></a>
     <span class="top-sep" aria-hidden="true"></span>
     <a class="top-title" href="#top">המדריך המלווה ל-SDD</a>
+    <span class="top-where" id="topWhere" aria-hidden="true"></span>
     <div class="top-actions">
       <button type="button" class="btn btn-ghost btn-sm top-listen listen" data-track="0" data-global="top" aria-label="האזנה למדריך"><svg class="i" aria-hidden="true"><use href="#i-head"/></svg><span>האזנה</span></button>
       <button type="button" class="icon-btn toc-btn" id="tocBtn" aria-controls="side" aria-expanded="false" aria-label="תוכן העניינים"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg></button>
@@ -779,8 +792,8 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
         <button type="button" class="btn btn-primary listen" data-track="0" data-global="start"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg>האזנה למדריך <span class="tdur" data-total></span></button>
         <a class="btn btn-ghost" href="#learn">למסלול הלמידה<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
-      <div class="lang-row" hidden><span id="langLbl1">שפת ההקראה</span><div class="lang-switch" role="group" aria-labelledby="langLbl1"><button type="button" data-lang="he" aria-pressed="true">עברית</button><button type="button" data-lang="en" lang="en" aria-pressed="false">English</button></div></div>
-      <p class="hero-meta">לכל פרק יש הקראה קולית בעברית ובאנגלית, ותמליל · עודכן בספטמבר 2026</p>
+      <div class="lang-row" hidden><span id="langLbl1">שפת ההקראה</span><div class="lang-switch" role="group" aria-labelledby="langLbl1"><button type="button" data-lang="en" lang="en" aria-pressed="true">English</button><button type="button" data-lang="he" aria-pressed="false">עברית</button></div></div>
+      <p class="hero-meta">לכל פרק יש הקראה קולית באנגלית ובעברית, ותמליל · עודכן בספטמבר 2026</p>
     </div>
     <aside class="thesis" aria-label="SDD בשורה אחת">
       <p class="thesis-k">בשורה אחת</p>
@@ -828,7 +841,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
       <div class="side-audio">
         <p><b>הגרסה הקולית.</b> כל פרק מוקרא, ואפשר להאזין לכל המדריך ברצף.</p>
         <button type="button" class="btn btn-ghost btn-sm listen" data-track="0" data-global="start"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg>האזנה מההתחלה</button>
-        <div class="lang-row" hidden><span id="langLbl2">שפה</span><div class="lang-switch" role="group" aria-labelledby="langLbl2"><button type="button" data-lang="he" aria-pressed="true">עברית</button><button type="button" data-lang="en" lang="en" aria-pressed="false">English</button></div></div>
+        <div class="lang-row" hidden><span id="langLbl2">שפה</span><div class="lang-switch" role="group" aria-labelledby="langLbl2"><button type="button" data-lang="en" lang="en" aria-pressed="true">English</button><button type="button" data-lang="he" aria-pressed="false">עברית</button></div></div>
       </div>
     </div>
   </aside>
@@ -839,7 +852,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
 <section class="chapter" id="summary" aria-labelledby="h-summary">
   <header class="ch-head">
     <div>
-      <p class="ch-num">01 · תמצית</p>
+      <p class="ch-num"><span class="ch-n">01</span>תמצית</p>
       <h2 id="h-summary">למה SDD, ולמה עכשיו</h2>
     </div>
     <button type="button" class="btn btn-ghost btn-sm listen" data-track="0"><svg class="i" aria-hidden="true"><use href="#i-head"/></svg>האזנה לפרק<span class="sr"> 1, תמצית</span> <span class="tdur" data-dur="0"></span></button>
@@ -863,7 +876,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
 <section class="chapter" id="status" aria-labelledby="h-status">
   <header class="ch-head">
     <div>
-      <p class="ch-num">02 · מצב ההטמעה</p>
+      <p class="ch-num"><span class="ch-n">02</span>מצב ההטמעה</p>
       <h2 id="h-status">מה כבר פותח בשיטה, ומה עוד לא</h2>
     </div>
     <button type="button" class="btn btn-ghost btn-sm listen" data-track="1"><svg class="i" aria-hidden="true"><use href="#i-head"/></svg>האזנה לפרק<span class="sr"> 2, מצב ההטמעה</span> <span class="tdur" data-dur="1"></span></button>
@@ -913,7 +926,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
 <section class="chapter" id="learn" aria-labelledby="h-learn">
   <header class="ch-head">
     <div>
-      <p class="ch-num">03 · מסלול הלמידה</p>
+      <p class="ch-num"><span class="ch-n">03</span>מסלול הלמידה</p>
       <h2 id="h-learn">יומיים, ארבעה מקורות</h2>
     </div>
     <button type="button" class="btn btn-ghost btn-sm listen" data-track="2"><svg class="i" aria-hidden="true"><use href="#i-head"/></svg>האזנה לפרק<span class="sr"> 3, מסלול הלמידה</span> <span class="tdur" data-dur="2"></span></button>
@@ -1024,14 +1037,6 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
           <li><span class="st-n">4</span><p>עוצרים אחרי כל שלב, ובודקים את הקובץ שנוצר לפני שממשיכים.</p></li>
           <li><span class="st-n">5</span><p>בסוף מודדים כמה זמן הלך על יצירת הקוד, וכמה על בדיקה, אינטגרציה ו-review.</p></li>
         </ol>
-        <div class="cmds">
-          <span class="cmds-k">שלבים 3 ו-4 · מריצים לפי הסדר, ובודקים את הקובץ אחרי כל פקודה</span>
-          <span class="cmd">constitution</span><span class="gate">בדיקה</span>
-          <span class="cmd">specify</span><span class="gate">בדיקה</span>
-          <span class="cmd">plan</span><span class="gate">בדיקה</span>
-          <span class="cmd">tasks</span><span class="gate">בדיקה</span>
-          <span class="cmd">implement</span>
-        </div>
         <div class="measure" id="measure">
           <p class="ms-k">שלב 5 · המדידה</p>
           <div class="ms-in">
@@ -1058,30 +1063,31 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
 <section class="chapter" id="method" aria-labelledby="h-method">
   <header class="ch-head">
     <div>
-      <p class="ch-num">04 · השיטה בפועל</p>
+      <p class="ch-num"><span class="ch-n">04</span>השיטה בפועל</p>
       <h2 id="h-method">איך עבדנו בגמל להשקעה</h2>
     </div>
   </header>
   <p class="prose">כך הופעלה השיטה בפרויקט הגמל להשקעה, באפיק 1 שעסק בהצטרפות של לקוח חדש שאינו מזוהה. זו הגרסה המלאה, מלפני שהחוקה צומצמה, ומה שהשתנה מאז מופיע בסוף הפרק.</p>
-  <div class="parts">
-    <button type="button" class="btn btn-ghost btn-sm listen" data-track="3"><svg class="i" aria-hidden="true"><use href="#i-head"/></svg><span class="sr">האזנה לפרק 4, </span>חלק א · הרעיון, התהליך והמבנה <span class="tdur" data-dur="3"></span></button>
-    <button type="button" class="btn btn-ghost btn-sm listen" data-track="4"><svg class="i" aria-hidden="true"><use href="#i-head"/></svg><span class="sr">האזנה לפרק 4, </span>חלק ב · העבודה והלקחים <span class="tdur" data-dur="4"></span></button>
-  </div>
   <nav class="method-nav" aria-label="נושאי הפרק">
     <a href="#m-idea">הרעיון</a><a href="#m-process">התהליך</a><a href="#m-repo">מבנה הריפו</a><a href="#m-constitution">החוקה</a><a href="#m-precedence">סדר הקדימות</a><a href="#m-spec">תיקיית ה-spec</a><a href="#m-owners">מי אחראי על מה</a><a href="#m-loop">הלולאה</a><a href="#m-blockers">חסמים גלויים</a><a href="#m-speckit">מול Spec Kit</a><a href="#m-lessons">מה למדנו</a><a href="#m-since">מה השתנה מאז</a>
   </nav>
 
+  <div class="part" id="part-a">
+    <p><span class="part-k">חלק א מתוך 2</span><span class="part-t">הרעיון, התהליך והמבנה</span></p>
+    <button type="button" class="btn btn-ghost btn-sm listen" data-track="3"><svg class="i" aria-hidden="true"><use href="#i-head"/></svg>האזנה לחלק<span class="sr"> א של פרק 4</span> <span class="tdur" data-dur="3"></span></button>
+  </div>
+
   <div class="panel" id="m-idea">
-    <p class="k">הרעיון</p>
+    <p class="k"><span class="k-n">4.1</span>הרעיון</p>
     <h3>המפרט הוא המוח, הסוכן הוא השריר</h3>
     <div class="brain">
-      <div class="brain-card dark">
+      <div class="brain-card is-spec">
         <p class="bk">המוח</p>
         <p class="bt">המפרט <span class="en">spec</span></p>
         <p class="bd">מה בונים ולמה, באילו גבולות, ואיך נדע שזה עובד.</p>
       </div>
       <div class="brain-ar" aria-hidden="true"><span class="ar">←</span><span>מניע את</span></div>
-      <div class="brain-card light">
+      <div class="brain-card is-agent">
         <p class="bk">השריר</p>
         <p class="bt">הסוכן <span class="en">agent</span></p>
         <p class="bd">מממש לפי המפרט, בהקשר נקי לכל משימה, ובני אדם סוקרים כל diff.</p>
@@ -1091,7 +1097,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
   </div>
 
   <div class="panel" id="m-process">
-    <p class="k">התהליך</p>
+    <p class="k"><span class="k-n">4.2</span>התהליך</p>
     <h3>שלושה שלבים: מה, איך, ובנייה</h3>
     <div class="stages">
       <div class="stage"><span class="stage-k">שלב 1 · מה בונים</span><span class="stage-t en">Shaping</span><p>מנהל המוצר מחדד את הדרישה ומדייק את התכולה, עד הסכמה על מה בתוך ה-scope ומה מחוצה לו.</p></div>
@@ -1100,7 +1106,10 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
       <div class="sgate">שער</div>
       <div class="stage"><span class="stage-k">שלב 3 · בנייה</span><span class="stage-t en">Execution</span><p>לולאה של אפיון, מימוש ואימות, spec אחרי spec.</p></div>
     </div>
-    <figure class="gantt-fig">
+    <details class="more">
+      <summary>ציר הזמן: איך השלבים חופפים</summary>
+      <div class="more-body">
+<figure class="gantt-fig">
       <div class="scroll-x">
         <div class="gantt" role="img" aria-label="ציר זמן: Shaping, אחריו Planning, ואז שלושה specs בחפיפה. ברגע המסומן spec 01 באימות, spec 02 במימוש ו-spec 03 באפיון.">
           <span class="g-l en" style="grid-row:1;grid-column:1">Shaping</span>
@@ -1125,11 +1134,13 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
       </div>
       <figcaption class="cap">רצף בין השלבים, ומקביליות בתוך שלב הבנייה. לא מתחילים Execution לפני ש-Planning נסגר, אבל מרגע שה-spec הראשון אופיין אפשר לממש אותו בזמן שהבאים עוד באפיון. הקו המקווקו מראה רגע אחד: spec 01 באימות, spec 02 במימוש ו-spec 03 באפיון.<span class="hs"> גוללים הצידה כדי לראות את כל הציר.</span></figcaption>
     </figure>
+      </div>
+    </details>
     <p class="note">בכל מעבר בין שלבים יש סקירה ואישור אנושי, ורק אחריהם מתקדמים.</p>
   </div>
 
   <div class="panel" id="m-repo">
-    <p class="k">מבנה הריפו</p>
+    <p class="k"><span class="k-n">4.3</span>מבנה הריפו</p>
     <h3>הכול במקום אחד, מקור אמת משותף</h3>
     <div class="kpis">
       <div class="kpi"><span class="kpi-n">6</span><span class="kpi-l">מסמכי חוקה</span></div>
@@ -1137,7 +1148,10 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
       <div class="kpi"><span class="kpi-n">3</span><span class="kpi-l">מסמכים בכל spec</span></div>
       <div class="kpi"><span class="kpi-n">14</span><span class="kpi-l">חוזי שירות</span></div>
     </div>
-    <div class="repo">
+    <details class="more">
+      <summary>עץ התיקיות, ומה יש בכל חלק</summary>
+      <div class="more-body">
+<div class="repo">
       <figure>
 <figcaption class="sr">עץ התיקיות של ריפו הגמל</figcaption>
 <pre class="tree" lang="en"><span class="d">epic1-gemel-sdd/</span>
@@ -1171,10 +1185,12 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
         <li><span class="lg-n">6</span><div><code>reference/</code><p>חומרי רקע: מפת ה-flow, השוואות וסקירות.</p></div></li>
       </ol>
     </div>
+      </div>
+    </details>
   </div>
 
   <div class="panel" id="m-constitution">
-    <p class="k">החוקה · <span class="en">Constitution</span></p>
+    <p class="k"><span class="k-n">4.4</span>החוקה · <span class="en">Constitution</span></p>
     <h3>שישה מסמכי-על, ולכל אחד בעלים</h3>
     <p class="panel-lead">המסמכים שכל שאר העבודה כפופה להם. בונים אותם ב-Planning, לפני שכותבים spec, ולכל אחד יש בעל תפקיד אחראי.</p>
     <div class="cfiles">
@@ -1188,7 +1204,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
   </div>
 
   <div class="panel" id="m-precedence">
-    <p class="k">סדר הקדימות</p>
+    <p class="k"><span class="k-n">4.5</span>סדר הקדימות</p>
     <h3>כששני מסמכים מתנגשים, הגבוה גובר</h3>
     <div class="tiers" role="list" aria-label="סדר הקדימות, מהסמכות העליונה ועד ה-specs">
       <div class="tier" role="listitem" style="--w:60%"><span class="tier-n">1</span><span class="tier-t">גבולות אבטחה<span class="tier-s">סמכות עליונה</span></span><span class="tier-r"><code>guardrails.md</code><span class="tier-o">אבטחת מידע</span></span></div>
@@ -1208,7 +1224,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
   </div>
 
   <div class="panel" id="m-spec">
-    <p class="k">תיקיית ה-spec</p>
+    <p class="k"><span class="k-n">4.6</span>תיקיית ה-spec</p>
     <h3>שלושה מסמכים, שלושה בעלים</h3>
     <p class="panel-lead">כל user story היא תיקייה אחת, ובתוכה שלושה מסמכים במבנה זהה בכל 17 ה-specs: מה, איך, והוכחה.</p>
     <div class="docs">
@@ -1242,7 +1258,10 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
         <p class="doc-rule">הבדיקות הפונקציונליות נגזרות מקריטריוני הקבלה. evals וביצועים אצל QA וההנדסה.</p>
       </article>
     </div>
-    <figure class="excerpt">
+    <details class="more">
+      <summary>דוגמה: כך נראה <code>specification.md</code> בפועל</summary>
+      <div class="more-body">
+<figure class="excerpt">
       <figcaption class="excerpt-k">כך זה נראה בפועל. מתוך <code>Specs/03-address/specification.md</code>, בקיצור:</figcaption>
 <pre class="code" lang="en"><span class="h"># 03 · Residential Address &amp; Gender · Specification</span>
 
@@ -1260,11 +1279,23 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
 <span class="k">## 10. Open questions</span>
 - Address service is down: fall back to manual entry? (engineering)</pre>
     </figure>
+      </div>
+    </details>
     <p class="banner"><b>מה זה אומר בפועל.</b> מסכימים על ה-specification לפני שבונים. המבנה הקבוע מאפשר לצוות ולסוכן לדעת איפה כל דבר נמצא, ומצמצם סטיות במימוש.</p>
   </div>
 
+  <details class="transcript">
+    <summary>תמליל ההקראה, חלק א · הרעיון, התהליך והמבנה</summary>
+    <div class="tr-body" data-transcript="3"></div>
+  </details>
+
+  <div class="part" id="part-b">
+    <p><span class="part-k">חלק ב מתוך 2</span><span class="part-t">העבודה והלקחים</span></p>
+    <button type="button" class="btn btn-ghost btn-sm listen" data-track="4"><svg class="i" aria-hidden="true"><use href="#i-head"/></svg>האזנה לחלק<span class="sr"> ב של פרק 4</span> <span class="tdur" data-dur="4"></span></button>
+  </div>
+
   <div class="panel" id="m-owners">
-    <p class="k">מי אחראי על מה</p>
+    <p class="k"><span class="k-n">4.7</span>מי אחראי על מה</p>
     <h3>מי אחראי על כל קובץ</h3>
     <p class="panel-lead">בעלים אחד או שניים לכל מסמך. אף אחד לא כותב בתחום של בעל תפקיד אחר, וכל החלטה מתקבלת אצל מי שאחראי עליה.</p>
     <div class="role-filter" role="group" aria-label="הדגשת תפקיד">
@@ -1333,7 +1364,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
   </div>
 
   <div class="panel" id="m-loop">
-    <p class="k">הלולאה</p>
+    <p class="k"><span class="k-n">4.8</span>הלולאה</p>
     <h3>כך נראית העבודה על spec</h3>
     <div class="loop">
       <figure>
@@ -1399,7 +1430,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
   </div>
 
   <div class="panel" id="m-blockers">
-    <p class="k">חסמים גלויים</p>
+    <p class="k"><span class="k-n">4.9</span>חסמים גלויים</p>
     <h3>כל אי-ודאות מסומנת, עם בעלים, לפני שורת קוד</h3>
     <p class="markers-k">ארבעת הסימונים שבהם משתמשים בתוך המסמכים:</p>
     <div class="markers">
@@ -1412,7 +1443,10 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
       <p><b>חסום, לא סוגרים.</b> spec עם שאלה חוסמת לא הופך לסופי עד שהשאלה נסגרת.</p>
       <p><b>לא ממציאים את הלא ידוע.</b> מה שלא ידוע מסומן TODO, עם בעל התפקיד שצריך לסגור אותו.</p>
     </div>
-    <figure class="heat-fig">
+    <details class="more">
+      <summary>תמונת המצב של 17 ה-specs ב-30 ביוני</summary>
+      <div class="more-body">
+<figure class="heat-fig">
       <div class="heat-box scroll-x">
         <table class="heat">
           <caption class="sr">מצב המסמכים בכל spec ב-30 ביוני, ומי מחזיק את החסם הפתוח</caption>
@@ -1441,10 +1475,12 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
       <div class="legend heat-key" aria-hidden="true"><span><i class="cell c-ok"></i>טיוטה מלאה</span><span><i class="cell c-wip"></i>חלקי, או בדיקות פונקציונליות בלבד</span><span><i class="cell c-na"></i>לא נכתב</span><span><i class="blk">הנדסה</i>חסם פתוח אצל</span></div>
       <figcaption class="cap">תמונת המצב ב-30 ביוני, מתוך <code>STATUS.md</code>. עמודת ה-implementation נשארה ריקה לכל אורכה, כי צוות הפיתוח מימש ישירות מה-specification. ארבעה specs חיכו להחלטה של ההנדסה על מנגנון: OTP, ניהול session וטיוטות, אנליטיקס, ו-masking בהקלטות.</figcaption>
     </figure>
+      </div>
+    </details>
   </div>
 
   <div class="panel" id="m-speckit">
-    <p class="k">מול <span class="en">Spec Kit</span></p>
+    <p class="k"><span class="k-n">4.10</span>מול <span class="en">Spec Kit</span></p>
     <h3>איפה אנחנו דומים, ואיפה שונים</h3>
     <p class="panel-lead">המפה עוזרת לתרגם בין השיטות למי שמריץ את Spec Kit. היא מבוססת על הסקירה שנעשתה ביוני על ריפו הגמל.</p>
     <div class="map" role="table" aria-label="השוואה בין ריפו הגמל לבין Spec Kit">
@@ -1461,7 +1497,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
   </div>
 
   <div class="panel" id="m-lessons">
-    <p class="k">מה למדנו</p>
+    <p class="k"><span class="k-n">4.11</span>מה למדנו</p>
     <h3>המציאות סטתה מהתוכנית, ומשם הלקחים</h3>
     <div class="pvr">
       <div class="pvr-row pvr-head"><span class="pvr-p">כך תוכנן</span><span class="pvr-r">כך קרה בפועל</span></div>
@@ -1490,10 +1526,13 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
   </div>
 
   <div class="panel" id="m-since">
-    <p class="k">מה השתנה מאז</p>
+    <p class="k"><span class="k-n">4.12</span>מה השתנה מאז</p>
     <h3>מה השתנה בתבנית מאז הגמל</h3>
     <p class="panel-lead">מהגמל ומפרויקט שיוך ההפקדות נבנו תבנית ריפו ו-Skill למנהלי המוצר. החוקה צומצמה לשלושה קבצים, והצד הטכני נשאר בידי ההנדסה.</p>
-    <div class="since">
+    <details class="more">
+      <summary>מה קרה לכל קובץ, אחד אחד</summary>
+      <div class="more-body">
+<div class="since">
       <div class="since-row since-head"><span>הקובץ</span><span>בגמל</span><span>בתבנית היום</span></div>
       <div class="since-row"><code>mission.md</code><span class="was">חוקה</span><span class="fate"><b>נשאר</b>ההקשר העסקי, ועכשיו גם עקרונות התכולה.</span></div>
       <div class="since-row"><code>roadmap.md</code><span class="was">חוקה</span><span class="fate"><b>נשאר</b>ועכשיו מרוכז בו גם סטטוס האפיון.</span></div>
@@ -1507,11 +1546,9 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
       <div class="since-row"><code>validation.md</code><span class="was">spec</span><span class="fate"><b>נשאר</b>ו-QA הבעלים. מנהל המוצר כותב רק בסעיף ההערות שלו.</span></div>
       <div class="since-row out"><code>STATUS.md</code><span class="was">שורש</span><span class="fate"><b>יצא</b>סטטוס האפיון ב-roadmap, ופיתוח ובדיקות ב-Jira.</span></div>
     </div>
+      </div>
+    </details>
   </div>
-  <details class="transcript">
-    <summary>תמליל ההקראה, חלק א · הרעיון, התהליך והמבנה</summary>
-    <div class="tr-body" data-transcript="3"></div>
-  </details>
   <details class="transcript">
     <summary>תמליל ההקראה, חלק ב · העבודה והלקחים</summary>
     <div class="tr-body" data-transcript="4"></div>
@@ -1522,7 +1559,7 @@ figcaption.cap{margin-top:12px;font-size:var(--fs-cap);line-height:1.6;color:var
 <section class="chapter" id="next" aria-labelledby="h-next">
   <header class="ch-head">
     <div>
-      <p class="ch-num">05 · שאלות פתוחות</p>
+      <p class="ch-num"><span class="ch-n">05</span>שאלות פתוחות</p>
       <h2 id="h-next">ארבע שאלות שעדיין פתוחות</h2>
     </div>
     <button type="button" class="btn btn-ghost btn-sm listen" data-track="5"><svg class="i" aria-hidden="true"><use href="#i-head"/></svg>האזנה לפרק<span class="sr"> 5, שאלות פתוחות</span> <span class="tdur" data-dur="5"></span></button>
@@ -1625,12 +1662,12 @@ var TRANSCRIPTS_EN = [["The SDD Companion Guide. Chapter one: summary.", "SDD, o
       paras.forEach(function(t){ var p = doc.createElement('p'); p.textContent = t; box.appendChild(p); });
       el.appendChild(box);
     }
-    block(he, 'עברית', false); block(en, 'English', true);
+    block(en, 'English', true); block(he, 'עברית', false);
     if (!he.length && !en.length){ var d = el.closest('details'); if (d) d.hidden = true; }
   });
   var hasAudio = TRACKS.some(function(t){ return t.dur > 0; });
   var LANG = {he: TRACKS, en: TRACKS_EN};
-  var lang = (hasEn && store('sdd-guide-lang') === 'en') ? 'en' : 'he';
+  var lang = (hasEn && store('sdd-guide-lang') !== 'he') ? 'en' : 'he';  /* ברירת המחדל: אנגלית, כל עוד המאזין לא בחר עברית */
   function T(){ return LANG[lang]; }
   function paintDurations(){
     var total = 0;
@@ -1643,10 +1680,10 @@ var TRANSCRIPTS_EN = [["The SDD Companion Guide. Chapter one: summary.", "SDD, o
   paintDurations();
   if (hasEn){
     $$('.lang-row').forEach(function(el){ el.hidden = false; });
-    $$('.hero-meta').forEach(function(el){ el.textContent = 'לכל פרק יש הקראה קולית בעברית ובאנגלית, ותמליל · עודכן בספטמבר 2026'; });
+    $$('.hero-meta').forEach(function(el){ el.textContent = 'לכל פרק יש הקראה קולית באנגלית ובעברית, ותמליל · עודכן בספטמבר 2026'; });
   }
   if (!hasAudio){
-    $$('.listen, .side-audio, .parts').forEach(function(el){ el.hidden = true; });
+    $$('.listen, .side-audio').forEach(function(el){ el.hidden = true; });
     $$('.hero-meta').forEach(function(el){ el.textContent = 'עודכן בספטמבר 2026'; });
   }
 
@@ -1661,6 +1698,7 @@ var TRANSCRIPTS_EN = [["The SDD Companion Guide. Chapter one: summary.", "SDD, o
   var bar = $('#progressBar');
   var tocLinks = $$('.toc a[data-sec]');
   var secs = tocLinks.map(function(a){ return doc.getElementById(a.getAttribute('data-sec')); });
+  var tocItems = $$('.toc > ol > li'), topEl = $('.top'), whereEl = $('#topWhere'), whereTxt = '';
   var ticking = false;
   function onScroll(){ if (!ticking){ ticking = true; requestAnimationFrame(update); } }
   function update(){
@@ -1675,6 +1713,10 @@ var TRANSCRIPTS_EN = [["The SDD Companion Guide. Chapter one: summary.", "SDD, o
     });
     if (max > 0 && se.scrollTop >= max - 2){ chapter = 'next'; sub = null; }
     var cur = sub || chapter;
+    tocItems.forEach(function(li){ li.classList.toggle('is-open', $('a', li).getAttribute('data-sec') === chapter); });
+    var ca = chapter && $('.toc a[data-sec="' + chapter + '"]');
+    var w = ca ? ca.textContent.replace(/^(\d\d)/, '$1 · ') : '';
+    if (w !== whereTxt){ whereTxt = w; whereEl.textContent = w; topEl.classList.toggle('has-where', !!w); }
     tocLinks.forEach(function(a){
       var id = a.getAttribute('data-sec');
       a.classList.toggle('is-active', id === chapter || id === sub);
@@ -1804,6 +1846,8 @@ var TRANSCRIPTS_EN = [["The SDD Companion Guide. Chapter one: summary.", "SDD, o
     });
   }
   scrollers(); window.addEventListener('resize', scrollers);
+  $$('details.more').forEach(function(d){ d.addEventListener('toggle', scrollers); });
+  window.addEventListener('beforeprint', function(){ $$('details.more').forEach(function(d){ d.open = true; }); });
 
   /* ---------- מניעת שבירת שורה אחרי אות שימוש ומקף ---------- */
   var WJ = /([א-ת])-(?=[A-Za-z0-9\/.])/g;
