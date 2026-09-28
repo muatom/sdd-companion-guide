@@ -1,0 +1,6 @@
+# local only: never published
+CLAUDE.md
+99_archive/
+_work/
+.claude/
+.DS_Store
